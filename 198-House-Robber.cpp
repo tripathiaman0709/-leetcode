@@ -1,33 +1,25 @@
 class Solution {
-
-    int fun(int i,int n,vector<int>&a,vector<int>&dp){
-        if(i>=n){
-            return 0;
-        }
-        if(dp[i]!=-1){
-            //ie--> already got calculated
-            return dp[i];
-        }
-
-        //pick
-        int pick=a[i]+fun(i+2,n,a,dp);
-        //not pick
-        int notpick=fun(i+1,n,a,dp);
-
-        return dp[i]=max(pick,notpick);
-    }
-
 public:
     int rob(vector<int>& a) {
         //maximum amount our boy could take away 
         //making sure that he cannot rob adjacent houses
 
-        //ofcourse making cases of take and not take
-        //memoization
+        //tabulation --> bottom up approach
+        //trying to calculate dp[n] by collecting data from earlier
+
 
         int n=a.size();
         vector<int>dp(n+1,-1);
-        int ans=fun(0,n,a,dp);
+
+        //defining state
+        //dp[i]=maximum steal uptil i
+        dp[0]=0;
+        dp[1]=a[0];
+
+        for(int i=2;i<=n;i++){
+            dp[i]=max(dp[i-1],a[i-1]+dp[i-2]);
+        }
+        int ans=dp[n];
         return ans;
     }
 };
