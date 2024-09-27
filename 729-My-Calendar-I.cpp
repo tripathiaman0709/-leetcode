@@ -1,15 +1,31 @@
 class MyCalendar {
 public:
-    vector<pair<int, int>> ranges;
-    MyCalendar() {}
+    set<pair<int,int>>st;
+    MyCalendar() {
+        
+    }
+    
     bool book(int start, int end) {
-        for (auto const& pair : ranges) {
-            int r_start = pair.first;
-            int r_end = pair.second;
-            if (start < r_end && end > r_start)
-                return false;
+        //aane vale start ke pichle vale and aane vale end ke agle vale ke within lie kr rha then false
+        //else return true;
+        auto it=st.lower_bound({start,end});
+
+        if(it!=st.end() && it->first<end){
+            return false;
         }
-        ranges.push_back(make_pair(start, end));
+        if(it!=st.begin()){
+            auto pre=prev(it);
+            if(start<pre->second){
+                return false;
+            }
+        }
+        st.insert({start,end});
         return true;
     }
 };
+
+/**
+ * Your MyCalendar object will be instantiated and called as such:
+ * MyCalendar* obj = new MyCalendar();
+ * bool param_1 = obj->book(start,end);
+ */
