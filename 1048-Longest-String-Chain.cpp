@@ -25,37 +25,27 @@ public:
         return false;
     }
 
-    int fun(int i,int pre,vector<string>&a,int n){
-        if(i==n){
-            return 0;
-        }
-        if(pre!=-1 && dp[i][pre]!=-1){
-            return dp[i][pre];
-        }
-        int take=0;
-        int nottake=0;
-
-        if(pre==-1 || check(a[pre],a[i])){
-            take=1+fun(i+1,i,a,n);
-        }
-        nottake=fun(i+1,pre,a,n);
-        if(pre!=-1){
-            return dp[i][pre]=max(take,nottake);
-        }
-        return max(take,nottake);
-    }
-
     static bool comp(string &s1, string &s2){
         return s1.size()<s2.size();
     }
 
     int longestStrChain(vector<string>& a) {
         int n=a.size();
-        memset(dp,-1,sizeof(dp));
         //sorting by the length of the strings
         sort(a.begin(),a.end(),comp);
+        vector<int>v(n,1);
+        int maxi=1;
         //doing recurrsion then memoization then finally tabulation or bottom up approach
+        for(int i=0;i<n;i++){
+            for(int j=0;j<i;j++){
+                if(check(a[j],a[i])){
+                    v[i]=max(v[i],1+v[j]);
+                    maxi=max(maxi,v[i]);
+                }
+            }
+        }
+        return maxi;
 
-        return fun(0,-1,a,n);
+
     }
 };
