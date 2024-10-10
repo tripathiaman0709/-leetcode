@@ -2,24 +2,21 @@ class Solution {
 public:
     int minAddToMakeValid(string s) {
         //could solve it using it a stack , but greedy approach will work faster here
-
-        //firstly using stack
         int n=s.size();
-        stack<char>st;
-        int count=0;
+        int l=0;
+        int r=0;
         for(int i=0;i<n;i++){
             if(s[i]=='('){
-                st.push('(');
+                l++;
             }else{
-                if(st.empty()){
-                    count++;
+                if(l>0){
+                    l--;
                 }else{
-                    st.pop();
+                    r++;
                 }
             }
         }
-        int mount=st.size();
-
-        return count+mount;
+        int ans=r+l;
+        return ans;
     }
 };
