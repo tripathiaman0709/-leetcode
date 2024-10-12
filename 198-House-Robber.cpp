@@ -7,19 +7,22 @@ public:
         //tabulation --> bottom up approach
         //trying to calculate dp[n] by collecting data from earlier
 
+        //now constant space..
+
 
         int n=a.size();
-        vector<int>dp(n+1,-1);
 
         //defining state
         //dp[i]=maximum steal uptil i
-        dp[0]=0;
-        dp[1]=a[0];
+        int pprev=0;
+        int prev=a[0];
 
         for(int i=2;i<=n;i++){
-            dp[i]=max(dp[i-1],a[i-1]+dp[i-2]);
+            int cur=max(prev,a[i-1]+pprev);
+
+            pprev=prev;
+            prev=cur;
         }
-        int ans=dp[n];
-        return ans;
+        return prev;
     }
 };
