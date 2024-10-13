@@ -1,17 +1,18 @@
 class Solution {
 public:
     int lengthOfLIS(vector<int>& a) {
+        //using simple patience sorting
         int n=a.size();
-        vector<int>v(n,1);
-        int maxi=1;
+        vector<int>ans;
+
         for(int i=0;i<n;i++){
-            for(int j=0;j<i;j++){
-                if(a[j]<a[i]){
-                    v[i]=max(v[i],v[j]+1);
-                    maxi=max(maxi,v[i]);
-                }
+            auto it=lower_bound(ans.begin(),ans.end(),a[i]);
+            if(it==ans.end()){
+                ans.push_back(a[i]);
+            }else{
+                *it=a[i];
             }
         }
-        return maxi;
+        return ans.size();
     }
 };
