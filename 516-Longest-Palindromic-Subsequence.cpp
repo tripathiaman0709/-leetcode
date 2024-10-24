@@ -1,34 +1,37 @@
 class Solution {
 public:
 
-    int dp[1001][1001];
-
-    int fun(int i,int j,string &s){
-        if(i>j){
-            return 0;
-        }
-        if(i==j){
-            return 1;
-        }
-        else{
-            if(dp[i][j]!=-1){
-                return dp[i][j];
-            }
-
-            if(s[i]==s[j]){
-                return dp[i][j]= 2+fun(i+1,j-1,s);
-            }else{
-                return dp[i][j]= max(fun(i+1,j,s),fun(i,j-1,s));
-            }
-        }
-    }
-
     int longestPalindromeSubseq(string s) {
         //firstly solving by simple recursion
         //using memoization
 
-        memset(dp,-1,sizeof(dp));
+        //now using the dp on palindrome trick method
+
         int n = s.size();
-        return fun(0,n-1,s);
+        vector<vector<int>>dp(n,vector<int>(n,0));
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(i==j){
+                    dp[i][j]=1;
+                }
+            }
+        }
+        //i+l-1<n
+        //so i<n-l+1
+        for(int l=2;l<=n;l++){
+            for(int i=0;i<n-l+1;i++){
+                int j=i+l-1;
+
+                if(s[i]==s[j]){
+                    dp[i][j]=2+dp[i+1][j-1];
+                }else{
+                    dp[i][j]=max(dp[i][j-1],dp[i+1][j]);
+                }
+            }
+        }
+
+        return dp[0][n-1];
+        
     }
 };
