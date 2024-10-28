@@ -1,19 +1,24 @@
 class Solution {
 public:
     int longestSquareStreak(vector<int>& a) {
+        //TC=O(N)
         int n=a.size();
-        sort(a.begin(),a.end());
-        unordered_map<int,int>mpp;
-        mpp[a[0]]=1;
+        unordered_set<int>st;
+        for(int i=0;i<n;i++){
+            st.insert(a[i]);
+        }
         int maxi=0;
-        for(int i=1;i<n;i++){
-            int root=sqrt(a[i]);
-            if(root*root==a[i] && mpp.count(root)){
-                mpp[a[i]]=mpp[root]+1;
-            }else{
-                mpp[a[i]]=1;
+        for(int i=0;i<n;i++){
+            long long num=a[i];
+            int count=0;
+            while(st.count(num)){
+                count++;
+                if(num*num>100000){
+                    break;
+                }
+                num*=num;                
             }
-            maxi=max(maxi,mpp[a[i]]);
+            maxi=max(maxi,count);
         }
         if(maxi<2){
             return -1;
