@@ -2,8 +2,8 @@ class Solution {
 public:
     bool uniqueOccurrences(vector<int>& v) {
         int n=v.size();
-        map<int,int>mpp;
-        set<int>st;
+        unordered_map<int,int>mpp;
+        unordered_set<int>st;
         for(int i=0;i<n;i++){
             mpp[v[i]]++;
         }
