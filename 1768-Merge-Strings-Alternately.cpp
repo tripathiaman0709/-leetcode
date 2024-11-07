@@ -13,12 +13,16 @@ public:
             ans+=s1[l];
             ans+=s2[l];
             l++;
-        }       
-        string x=s1.substr(l);
-        ans+=x;
-        string y=s2.substr(l);
-        ans+=y;
-
+        } 
+        if(z==m){      
+        for(int i=z;i<n;i++){
+            ans+=s1[i];
+        }
+        }else{
+        for(int i=z;i<m;i++){
+            ans+=s2[i];
+        }
+        }
         return ans;
 
 
