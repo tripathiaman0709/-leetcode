@@ -1,14 +1,15 @@
 class Solution {
 public:
-    bool searchMatrix(vector<vector<int>>& grid, int k) {
-        for(int i=0;i<grid.size();i++){
-            for(int j=0;j<grid[0].size();j++){
-                if(grid[i][j]==k){
-                    return true;
-                }
-            }
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int row = 0, col = matrix[0].size() - 1;
+        while (row < matrix.size() && col >= 0) {
+            if (matrix[row][col] == target) 
+                return true;
+            if (matrix[row][col] < target) 
+                row++;
+            else 
+                col--;
         }
         return false;
-        
     }
 };
