@@ -2,7 +2,7 @@ class Solution {
 public:
     int maxCount(vector<int>& v, int x, int mxsum) {
         int n=v.size();
-        set<int>st;
+        unordered_set<int>st;
         for(int i=0;i<n;i++){
             st.insert(v[i]);
         }
