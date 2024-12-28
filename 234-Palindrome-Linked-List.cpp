@@ -12,19 +12,33 @@ class Solution {
 public:
     bool isPalindrome(ListNode* head) {
         //reversing it and checking if its same 
-        //but firstly trying vector
         ListNode* temp=head;
-        vector<int>v;
+        vector<int>v1;
+        vector<int>v2;
         while(temp!=nullptr){
-            v.push_back(temp->val);
+            v1.push_back(temp->val);
             temp=temp->next;
         }
-        int n=v.size();
-        for(int i=0;i<n/2;i++){
-            if(v[i]!=v[n-i-1]){
-                return false;
-            }
+        //now reversing the linked list
+        ListNode* prevptr=nullptr;
+        ListNode* currptr=head;
+        ListNode* nextptr;
+
+        while(currptr!=nullptr){
+            nextptr=currptr->next;
+            currptr->next=prevptr;
+
+            prevptr=currptr;
+            currptr=nextptr;
         }
-        return true;
+        ListNode* temp2=prevptr;
+        while(temp2!=nullptr){
+            v2.push_back(temp2->val);
+            temp2=temp2->next;
+        }
+        if(v1==v2){
+            return true;
+        }
+        return false;
     }
 };
