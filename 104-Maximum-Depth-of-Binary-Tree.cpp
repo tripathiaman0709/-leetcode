@@ -12,31 +12,44 @@
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
-        //looks like counting the total number of levels
-        //through traversal like bfs
-        //that is level wise traversal 
-        //so using queue
+        // //looks like counting the total number of levels
+        // //through traversal like bfs
+        // //that is level wise traversal 
+        // //so using queue
+        // if(root==nullptr){
+        //     return 0;
+        // }
+        // TreeNode* node=root;
+        // queue<TreeNode*>q;
+        // q.push(node);
+        // int count=0;
+        // while(!q.empty()){
+        //     int sz=q.size();
+        //     count++;
+        //     for(int i=0;i<sz;i++){
+        //         TreeNode* nd=q.front();
+        //         q.pop();
+        //         if(nd->left!=nullptr){
+        //             q.push(nd->left);
+        //         }
+        //         if(nd->right!=nullptr){
+        //             q.push(nd->right);
+        //         }
+        //     }
+        // }
+        // return count;
+
+        //recursive way to solve
+        //easier approach
         if(root==nullptr){
             return 0;
         }
-        TreeNode* node=root;
-        queue<TreeNode*>q;
-        q.push(node);
-        int count=0;
-        while(!q.empty()){
-            int sz=q.size();
-            count++;
-            for(int i=0;i<sz;i++){
-                TreeNode* nd=q.front();
-                q.pop();
-                if(nd->left!=nullptr){
-                    q.push(nd->left);
-                }
-                if(nd->right!=nullptr){
-                    q.push(nd->right);
-                }
-            }
-        }
-        return count;
+        int maxi=0;
+        int lh=maxDepth(root->left);
+        int rh=maxDepth(root->right);
+
+        maxi=max(maxi,1+max(lh,rh));
+
+        return maxi;        
     }
 };
