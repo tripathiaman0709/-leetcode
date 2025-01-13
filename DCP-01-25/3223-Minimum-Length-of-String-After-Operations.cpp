@@ -3,17 +3,20 @@ public:
     int minimumLength(string s) {
         int n=s.size();
         int ans=0;
-        unordered_map<char,int>mpp;
+        //using a vector array instead of unordered map
+        //of size 26 as only 26 possible characters will be there
+        // unordered_map<char,int>mpp;
+        vector<int>v(26,0);
         for(int i=0;i<n;i++){
-            mpp[s[i]]++;
+            v[s[i]-97]++;
         }
-        for(auto it:mpp){
-            if(it.second<3){
-                ans+=it.second;
-            }else if(it.second==3){
+        for(auto it:v){
+            if(it<3){
+                ans+=it;
+            }else if(it==3){
                 ans++;
             }else{
-                if(it.second%2){
+                if(it%2){
                     ans++;
                 }else{
                     ans+=2;
