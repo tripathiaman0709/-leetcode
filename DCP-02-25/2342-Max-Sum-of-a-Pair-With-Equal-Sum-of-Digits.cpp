@@ -13,11 +13,13 @@ public:
     int maximumSum(vector<int>& v) {
         int n=v.size();
         int ans=-1;
-        unordered_map<int,int>mpp;
+        // unordered_map<int,int>mpp;
+        //using vector of size 82 instead
+        vector<int>mpp(82);
         for(int i=0;i<n;i++){
             int digitsum=fun(v[i]);
 
-            if(mpp.count(digitsum)>0){
+            if(mpp[digitsum]>0){
                 ans=max(ans,v[i]+mpp[digitsum]);
                 //updating the maximum
                 mpp[digitsum]=max(v[i],mpp[digitsum]);
