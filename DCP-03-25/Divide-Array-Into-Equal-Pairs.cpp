@@ -13,9 +13,20 @@ public:
         //     }
         // }
         // return true;
-        sort(v.begin(),v.end());
-        for(int i=0;i<n;i+=2){
-            if(v[i]!=v[i+1]){
+        // sort(v.begin(),v.end());
+        // for(int i=0;i<n;i+=2){
+        //     if(v[i]!=v[i+1]){
+        //         return false;
+        //     }
+        // }
+        // return true;
+        //using frequency vector of size 500
+        vector<int>freq(501,0);
+        for(int i=0;i<n;i++){
+            freq[v[i]]++;
+        }
+        for(auto it:freq){
+            if(it%2){
                 return false;
             }
         }
