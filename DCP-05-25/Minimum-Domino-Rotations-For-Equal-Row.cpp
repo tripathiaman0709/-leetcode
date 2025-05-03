@@ -7,19 +7,12 @@ public:
         for(int i=0;i<t.size();i++){    
             if(t[i]!=v && b[i]!=v){
                 return -1;
-            }else if(t[i]==v){
-                continue;
-            }else{
-                tmin++;
-            }
-        }
-        for(int i=0;i<t.size();i++){    
-            if(t[i]!=v && b[i]!=v){
-                return -1;
-            }else if(b[i]==v){
-                continue;
-            }else{
+            }else if(t[i]==v && b[i]!=v){
                 bmin++;
+            }else if(t[i]!=v && b[i]==v){
+                tmin++;
+            }else{
+                continue;
             }
         }
         return min(tmin,bmin);
