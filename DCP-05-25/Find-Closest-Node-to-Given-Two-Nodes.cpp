@@ -1,15 +1,34 @@
 class Solution {
 public:
 
-    void dfs(int node,vector<int>&edges,vector<bool>&vis,vector<int>&v){
-        //writing dfs code
-        vis[node]=true;
-        int u=edges[node];
+    // void dfs(int node,vector<int>&edges,vector<bool>&vis,vector<int>&v){
+    //     //writing dfs code
+    //     vis[node]=true;
+    //     int u=edges[node];
 
-        if(u!=-1 && !vis[u]){
-            vis[u]=true;
-            v[u]=v[node]+1;
-            dfs(u,edges,vis,v);
+    //     if(u!=-1 && !vis[u]){
+    //         vis[u]=true;
+    //         v[u]=v[node]+1;
+    //         dfs(u,edges,vis,v);
+    //     }
+    // }
+
+    void bfs(int node,vector<int>&edges,vector<bool>&vis,vector<int>&v){
+        queue<int>q;
+        q.push(node);
+
+        vis[node]=true;
+
+        while(!q.empty()){
+            int node=q.front();
+            q.pop();
+
+            int u=edges[node];
+            if(u!=-1 && !vis[u]){
+                v[u]=1+v[node];
+                vis[u]=true;
+                q.push(u);
+            }
         }
     }
 
@@ -28,8 +47,8 @@ public:
         v0[node1]=0;
         v1[node2]=0;
 
-        dfs(node1,edges,vis0,v0);
-        dfs(node2,edges,vis1,v1);
+        bfs(node1,edges,vis0,v0);
+        bfs(node2,edges,vis1,v1);
 
         int node=-1;
         int mini=INT_MAX;
