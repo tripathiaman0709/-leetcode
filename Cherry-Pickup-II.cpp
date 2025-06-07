@@ -1,7 +1,7 @@
 class Solution {
 public:
     int n,m;
-    int dp[101][101][101];
+    int dp[71][71][71];
 
     int fun(int r,int c1,int c2,vector<vector<int>>&grid){
         n=grid.size();
