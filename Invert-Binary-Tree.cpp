@@ -16,6 +16,12 @@ public:
         //swapping hogi
         //left node right ban jaayegi and vice versa
 
+        //pehle swap kro
+        //fir left aur right vale cases ko call kro
+
+        //and base case hoga when root == NULL
+        
+
         //base case
         if(root==nullptr){
             return root;
