@@ -20,7 +20,8 @@ public:
         q.push(node);
 
         while(!q.empty()){
-
+            int sz=q.size();
+            for(int i=0;i<sz;i++){
                 TreeNode* it=q.front();
                 q.pop();
 
@@ -32,7 +33,7 @@ public:
                     mpp[it->right]=it;
                     q.push(it->right);
                 }
-
+            }
         }
     }
 
