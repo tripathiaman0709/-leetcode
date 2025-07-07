@@ -13,14 +13,14 @@ public:
                 pq.push(v[i][1]);
                 i++;
             }
+            while(!pq.empty() && pq.top()<start){
+                pq.pop();
+            }
             if(!pq.empty()){
                 pq.pop();
                 count++;
             }
-            start++;
-            while(!pq.empty() && pq.top()<start){
-                pq.pop();
-            }
+            start++;            
         }
         return count;
     }
