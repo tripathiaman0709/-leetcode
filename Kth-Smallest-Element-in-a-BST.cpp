@@ -12,16 +12,22 @@
 class Solution {
 public:
 
-    void inorder(TreeNode* node,vector<int>&v){
+    int inorder(TreeNode* node,int &count){
         //left root right
 
         if(node==nullptr){
-            return;
+            return -1;
         }
-        inorder(node->left,v);
-        v.push_back(node->val);
-        inorder(node->right,v);
 
+        int left = inorder(node->left, count);
+        if (left != -1) return left;
+
+        // Visit current node
+        count--;
+        if (count == 0) return node->val;
+
+        // Traverse right
+        return inorder(node->right, count);
     }
 
     int kthSmallest(TreeNode* root, int k) {
@@ -50,10 +56,9 @@ public:
         // return v[k-1];
         //we know that inorder traversal of a bst gives a sorted array
 
-        vector<int>v;
-        inorder(root,v);
+        return inorder(root,k);
 
-        return v[k-1];
+        // return v[k-1];
         
     }
 };
