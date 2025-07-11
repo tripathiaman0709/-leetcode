@@ -1,43 +1,27 @@
-class NodeValue {
-public: 
-    int minNode, maxNode, maxSum;
-    
-    NodeValue(int minNode, int maxNode, int maxSum)
-    {
-        this->minNode = minNode;
-        this->maxNode = maxNode;
-        this->maxSum = maxSum;
-    }
-};
-
 class Solution {
+    struct S {
+        bool isBST;
+        int minVal, maxVal, sum;
+    };
     
-private:
-    NodeValue maxSumBSTHelper(TreeNode* root)
-    {
-        if(!root) return NodeValue(INT_MAX, INT_MIN, 0);
-        
-        auto left = maxSumBSTHelper(root->left);
-        auto right = maxSumBSTHelper(root->right);
-        
-        if(left.maxNode < root->val && root->val < right.minNode)
-        {
-            //if BT is BST
-            sum = max(sum, root->val + left.maxSum + right.maxSum);
-            
-            return NodeValue(min(root->val, left.minNode), max(root->val, right.maxNode), root->val + left.maxSum + right.maxSum);
-            
+    S helper(TreeNode *node, int &res) {
+        if (!node) {
+            return { true, INT_MAX, INT_MIN, 0 };
         }
-        
-        return NodeValue(INT_MIN, INT_MAX, max(left.maxSum, right.maxSum));   
+        S l = helper(node->left, res);
+        S r = helper(node->right, res);
+        if (l.isBST && r.isBST && l.maxVal < node->val && r.minVal > node->val) {
+            int sum = l.sum + r.sum + node->val;
+            res = max(res, sum);
+            return { true, min(l.minVal, node->val), max(r.maxVal, node->val), sum };
+        } else {
+            return { false, 0, 0, 0 };
+        }
     }
-    
 public:
-    int sum=0;
-    int maxSumBST(TreeNode* root) 
-    {
-        maxSumBSTHelper(root);
-        return sum>0 ? sum : 0;
-        
+    int maxSumBST(TreeNode* root) {
+        int res = 0;
+        helper(root, res);
+        return res;
     }
 };
