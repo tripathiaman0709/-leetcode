@@ -1,52 +1,47 @@
 class Solution {
 public:
     long long minimumDifference(vector<int>& nums) {
-        int n = nums.size();
-        int k = n / 3;
+        int n3 = nums.size();
+        int n = n3 / 3;
 
-        vector<long long> leftMins(n), rightMaxs(n);
-        priority_queue<int> maxLeftHeap; // max-heap for smallest k
-        priority_queue<int, vector<int>, greater<int>> minRightHeap; // min-heap for largest k
+        vector<long long> leftMin(n3, 0), rightMin(n3, 0);
 
-        long long leftSum = 0, rightSum = 0, minDiff = LLONG_MAX;
-
-        // Build leftMins
-        for (int i = 0; i < k; ++i) {
-            maxLeftHeap.push(nums[i]);
+        // Max heap for left part (to remove largest and keep n smallest)
+        priority_queue<int> maxHeap;
+        long long leftSum = 0;
+        for (int i = 0; i < n3; ++i) {
+            maxHeap.push(nums[i]);
             leftSum += nums[i];
-        }
-        leftMins[k - 1] = leftSum;
-
-        for (int i = k; i < n - k; ++i) {
-            if (!maxLeftHeap.empty() && nums[i] < maxLeftHeap.top()) {
-                leftSum += nums[i] - maxLeftHeap.top();
-                maxLeftHeap.pop();
-                maxLeftHeap.push(nums[i]);
+            if (maxHeap.size() > n) {
+                leftSum -= maxHeap.top();
+                maxHeap.pop();
             }
-            leftMins[i] = leftSum;
+            if (i >= n - 1) {
+                leftMin[i] = leftSum;
+            }
         }
 
-        // Build rightMaxs
-        for (int i = n - 1; i >= n - k; --i) {
-            minRightHeap.push(nums[i]);
+        // Min heap for right part (to remove smallest and keep n largest)
+        priority_queue<int, vector<int>, greater<>> minHeap;
+        long long rightSum = 0;
+        for (int i = n3 - 1; i >= 0; --i) {
+            minHeap.push(nums[i]);
             rightSum += nums[i];
-        }
-        rightMaxs[n - k] = rightSum;
-
-        for (int i = n - k - 1; i >= k - 1; --i) {
-            if (!minRightHeap.empty() && nums[i] > minRightHeap.top()) {
-                rightSum += nums[i] - minRightHeap.top();
-                minRightHeap.pop();
-                minRightHeap.push(nums[i]);
+            if (minHeap.size() > n) {
+                rightSum -= minHeap.top();
+                minHeap.pop();
             }
-            rightMaxs[i] = rightSum;
+            if (i <= n3 - n) {
+                rightMin[i] = rightSum;
+            }
         }
 
-        // Compute min difference
-        for (int i = k - 1; i < n - k; ++i) {
-            minDiff = min(minDiff, leftMins[i] - rightMaxs[i + 1]);
+        // Find minimum difference between left and right segment sums
+        long long result = LLONG_MAX;
+        for (int i = n - 1; i <= n3 - n - 1; ++i) {
+            result = min(result, leftMin[i] - rightMin[i + 1]);
         }
 
-        return minDiff;
+        return result;
     }
 };
