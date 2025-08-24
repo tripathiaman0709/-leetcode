@@ -2,19 +2,19 @@ class Solution {
 public:
     int longestSubarray(vector<int>& v) {
         int n=v.size();
-        int count1=0;
-        for(int i=0;i<n;i++){
-            if(v[i]==1){
-                count1++;
-            }
-        }
+        // int count1=0;
+        // for(int i=0;i<n;i++){
+        //     if(v[i]==1){
+        //         count1++;
+        //     }
+        // }
 
-        if(count1==n){
-            return n-1;
-        }
-        if(count1==0){
-            return 0;
-        }
+        // if(count1==n){
+        //     return n-1;
+        // }
+        // if(count1==0){
+        //     return 0;
+        // }
 
         int maxlen=0;
         //i think sliding window is the approach that will work here
