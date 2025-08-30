@@ -1,41 +1,35 @@
 class Solution {
 public:
-    bool isSafe(vector<vector<char>>& board, int cur_row, int cur_col, char value){
-        //row check
-        for(int i=0; i<9; i++){
-            if(board[i][cur_col] == value && i != cur_row){
-                return false;
-            }
-        }
-
-        //column check
-        for(int i=0; i<9; i++){
-            if(board[cur_row][i] == value && i != cur_col){
-                return false;
-            }
-        }
-
-        //3x3 matrix check
-        for(int i=0; i<9; i++){
-            int x = 3*(cur_row/3)+(i/3);
-            int y = 3*(cur_col/3)+(i%3);
-            if(board[x][y] == value && x != cur_row && y != cur_col){
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-
-    bool isValidSudoku(vector<vector<char>>& board) {
-        for(int i=0; i<9; i++){
-            for(int j=0; j<9; j++){
-                if(board[i][j] != '.'){
-                    if(isSafe(board, i, j, board[i][j]) == false){
-                        return false;
-                    }
+    bool isValidSudoku(vector<vector<char>>& grid) {
+        unordered_set<string>st;
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                //pehle row se match kro
+                //fir column se match kro
+                //fir within the 3x3 grid ko match kro
+                if(grid[i][j]=='.'){
+                    continue;
                 }
+                int boxi=i/3;
+                int boxj=j/3;
+                string row="row";
+                row+=i;
+                row+=grid[i][j];
+                string col="col";
+                col+=j;
+                col+=grid[i][j];
+                string box="box";
+                box+=boxi;
+                box+=boxj;
+                box+=grid[i][j];
+
+                if(st.find(row)!=st.end() || st.find(col)!=st.end() || st.find(box)!=st.end()){
+                    return false;
+                }
+
+                st.insert(row);
+                st.insert(col);
+                st.insert(box);
             }
         }
         return true;
