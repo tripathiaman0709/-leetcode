@@ -19,20 +19,20 @@
 19        string s=solve(n);
 20
 21        int sz=s.size();
-22        vector<int>pos;
-23        for(int i=0;i<sz;i++){
-24            if(s[i]=='1') pos.push_back(i);
-25        }
-26        if(pos.size()<=1){
-27            return 0;
-28        }
-29
-30        //finding difference between two adj positions
-31        int maxi=0;
-32        for(int i=0;i<pos.size()-1;i++){
-33            maxi=max(maxi,(pos[i+1]-pos[i]));
-34        }
-35
+22        int prev=-1;
+23        int next=-1;
+24
+25        int maxi=0;
+26        for(int i=0;i<sz;i++){
+27            if(s[i]=='1' && prev==-1){
+28                prev=i;
+29            }
+30            if(s[i]=='1' && prev!=-1){
+31                next=i;
+32                maxi=max(maxi,next-prev);
+33                prev=next;
+34            }
+35        }
 36        return maxi;
 37    }
 38};
