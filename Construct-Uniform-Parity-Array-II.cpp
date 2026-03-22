@@ -1,34 +1,27 @@
 1class Solution {
 2public:
-3    bool uniformArray(vector<int>& v) {
-4        int n=v.size();
-5        //jo first element hai in sorted array
-6        //uski parity toh change nhi ho payegi
-7        //hence trying to make all elements parity equal to first element
-8
-9        sort(v.begin(),v.end());
-10        int parity=v[0]%2;
-11
-12        int odd=0;
-13        int even=0;
+3    bool uniformArray(vector<int>& nums1) {
+4        int n = nums1.size();
+5        int cnteve=0; int cntodd=0;
+6        for(auto x:nums1){
+7            if(x%2==0) cnteve++;
+8            else cntodd++;
+9        }
+10
+11        //if all even or all odd return true
+12        if(cnteve == n || cntodd == n) return true; 
+13
 14
-15        for(int i=0;i<n;i++){
-16            if(v[i]%2 == parity){
-17                if(v[i]%2)odd++;
-18                else even++;
-19                continue;
-20            } 
+15        //if mix of even and odd -> We can only make even num as odd by substracting with odd
+16
+17        int mn=1e9+1;
+18        for(auto x:nums1){
+19            if(x%2==1) mn = min(mn,x);
+20        }
 21
-22            if(parity==0 && odd==0){
-23                return false;
-24            }
-25            if(parity==1 && odd==0){
-26                return false;
-27            }
-28
-29            if(v[i]%2)odd++;
-30            else even++;
-31        }
-32        return true;
-33    }
-34};
+22        for(auto x:nums1){
+23            if(x%2==0 && x-mn<1) return false;
+24        }
+25        return true;
+26    }
+27};
