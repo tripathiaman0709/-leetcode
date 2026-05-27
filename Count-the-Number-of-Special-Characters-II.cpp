@@ -1,42 +1,37 @@
 1class Solution {
 2public:
 3    int numberOfSpecialChars(string s) {
-4        int n=s.size();
-5
-6        unordered_map<char,int>lmpp;
-7        unordered_map<char,int>umpp;
-8
-9        //storing the last index of small letter
-10        for(int i=0;i<n;i++){
-11            //storing for lower case
-12            if(s[i]>92){
-13                lmpp[s[i]]=i+1;
+4
+5        vector<int> lower(26, 0);
+6        vector<int> upper(26, 0);
+7
+8        int n = s.size();
+9
+10        for(int i = 0; i < n; i++) {
+11
+12            if(islower(s[i])) {
+13                lower[s[i]-'a'] = i + 1;
 14            }
 15        }
-16        //storing the first index of big letter
-17
-18        for(int i=n-1;i>=0;i--){
-19            //storing for upper case
-20            if(s[i]<92){
-21                umpp[s[i]]=i+1;
-22            }
-23        }
-24
-25        int count=0;
-26        for(int i=0;i<n;i++){
-27            if(s[i]>92){
-28                int last_ind=lmpp[s[i]];
-29                int first_ind=umpp[s[i]-32];
+16
+17        for(int i = n-1; i >= 0; i--) {
+18
+19            if(isupper(s[i])) {
+20                upper[s[i]-'A'] = i + 1;
+21            }
+22        }
+23
+24        int ans = 0;
+25
+26        for(int i = 0; i < 26; i++) {
+27
+28            if(lower[i] && upper[i] &&
+29               lower[i] < upper[i]) {
 30
-31                if(lmpp[(s[i])]==0 || umpp[(s[i]-32)]==0)continue;
-32
-33                if(last_ind < first_ind){
-34                    count++;
-35                }
-36                lmpp[s[i]]=0;
-37                umpp[s[i]-32]=0;
-38            }
-39        }
-40        return count;
-41    }
-42};
+31                ans++;
+32            }
+33        }
+34
+35        return ans;
+36    }
+37};
