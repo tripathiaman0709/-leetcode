@@ -5,7 +5,7 @@ public:
         int m=v[0].size();
 
         for(int i=0;i<v.size();i++){
-            sort(v[i].begin(),v[i].end());
+            sort(v[i].rbegin(),v[i].rend());
         }
 
         int total=0;
