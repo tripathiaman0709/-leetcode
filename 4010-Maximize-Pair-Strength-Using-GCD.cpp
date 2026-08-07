@@ -7,7 +7,7 @@ public:
             long long x=v[i];
             for(long long j=i+1;j<n;j++){
                 long long y=v[j];
-                long long hcf=__gcd(x,y);
+                long long hcf=gcd(x,y);
                 hcf*=hcf;
                 long long pro=x*y;
 
