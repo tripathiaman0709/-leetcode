@@ -6,11 +6,9 @@ public:
         //then storing it in unordered set then simply counting the square of size of set
         int ans=0;
         for(int i=0;i<n;i++){
+            unordered_set<int>st;
             for(int j=i;j<n;j++){
-                unordered_set<int>st;
-                for(int k=i;k<=j;k++){
-                    st.insert(v[k]);
-                }
+                st.insert(v[j]);
                 int sz=st.size();
                 // cout<<sz<<' ';
                 ans+=(sz*sz);
