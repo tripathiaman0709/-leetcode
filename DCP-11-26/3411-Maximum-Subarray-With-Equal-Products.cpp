@@ -1,10 +1,5 @@
 class Solution {
 public:
-    int maxLength(vector<int>& nums) {
-        
-    }
-};class Solution {
-public:
 
     int hcf(int x,int y){
         if(y==0){
